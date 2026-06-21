@@ -1,0 +1,6 @@
+{
+  "name": "Kasir POS & Stok Real-Time",
+  "description": "Aplikasi Point of Sale (POS) Kasir pintar terintegrasi dengan pemantauan stok barang real-time, laporan keuangan, dan histori transaksi.",
+  "requestFramePermissions": ["camera"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

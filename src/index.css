@@ -1,0 +1,321 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;705;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+@keyframes scan {
+  0%, 100% {
+    top: 5%;
+  }
+  50% {
+    top: 95%;
+  }
+}
+
+.animate-scan-line {
+  animation: scan 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+/* Custom scrollbars and styling resets to make layout balanced */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* Dedicated Thermal Printer Receipt CSS Layout */
+@media print {
+  html, body {
+    background-color: #ffffff !important;
+    background: #ffffff !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 80mm !important; /* Standard 80mm Thermal paper width support */
+  }
+
+  /* Hide everything except the printable template container */
+  body * {
+    visibility: hidden !important;
+  }
+
+  #printable-receipt-card,
+  #printable-receipt-card * {
+    visibility: visible !important;
+    color: #000000 !important;
+    background-color: transparent !important;
+    border-color: #000000 !important;
+  }
+
+  #printable-receipt-card {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 76mm !important;
+    margin: 0 !important;
+    padding: 4mm !important;
+    border: none !important;
+    box-shadow: none !important;
+    background: #ffffff !important;
+    font-family: 'JetBrains Mono', Courier, monospace !important;
+    font-size: 11px !important;
+    line-height: 1.4 !important;
+  }
+
+  /* Adjustments for custom receipt elements */
+  #printable-receipt-card h5,
+  #printable-receipt-card h4 {
+    font-weight: 800 !important;
+    text-align: center !important;
+    color: #000000 !important;
+  }
+
+  .border-dashed {
+    border-style: dashed !important;
+    border-color: #000000 !important;
+  }
+
+  /* Hide print buttons while printing */
+  .no-print {
+    display: none !important;
+    visibility: hidden !important;
+  }
+}
+
+/* Better dark mode theme custom additions using modern selectors */
+.dark {
+  /* Slate & Charcoal transitions and custom configurations */
+  --bg-main: #020617; /* slate-950 */
+  --bg-card: #0f172a; /* slate-900 */
+  --bg-hover: #1e293b; /* slate-800 */
+  --bg-alt: #1e293b; /* slate-800 */
+  --border-color: #334155; /* slate-700 */
+  --border-muted: #1e293db2; /* slate-800 with opacity */
+  --text-main: #f8fafc; /* slate-50 */
+  --text-muted: #94a3b8; /* slate-400 */
+  --text-darker: #cbd5e1; /* slate-300 */
+
+  /* Override structural backgrounds and borders inside the .dark selector */
+  #applet-main-body,
+  .bg-slate-50,
+  .bg-slate-100 {
+    background-color: var(--bg-main) !important;
+    color: var(--text-main) !important;
+  }
+
+  /* White background layouts */
+  .bg-white,
+  #navigation-bar,
+  #global-application-header,
+  #cart-panel-card,
+  #receipt-modal-card,
+  #cashier-control-bar,
+  #empty-catalogue-match,
+  #qris-simulator-dock,
+  #checkout-drawer-panel,
+  .bg-slate-50\/50,
+  .bg-white\/80 {
+    background-color: var(--bg-card) !important;
+    color: var(--text-darker) !important;
+    border-color: var(--border-color) !important;
+  }
+
+  /* Specific buttons that should remain dark or adjust */
+  button.bg-white,
+  a.bg-white,
+  .bg-white button {
+    border-color: var(--border-color) !important;
+  }
+
+  /* Interactive list items, product cards */
+  .bg-white.rounded.border.p-3 {
+    background-color: var(--bg-card) !important;
+    border-color: var(--border-color) !important;
+    color: var(--text-main) !important;
+  }
+
+  /* Inactive states / text colors */
+  .text-slate-800,
+  .text-slate-700,
+  .text-slate-900,
+  .text-slate-850,
+  span.font-bold,
+  h1:not(.text-indigo-600),
+  h2,
+  h3:not(.text-indigo-650):not(.text-indigo-600),
+  h4,
+  h5,
+  p {
+    color: var(--text-main) !important;
+  }
+
+  .text-slate-600,
+  .text-slate-500,
+  .text-slate-400,
+  p.text-xs {
+    color: var(--text-muted) !important;
+  }
+
+  /* Borders override */
+  .border,
+  .border-slate-200,
+  .border-slate-250,
+  .border-slate-300,
+  .border-slate-100,
+  .border-indigo-100\/50,
+  .border-emerald-100\/50,
+  .border-blue-100\/50 {
+    border-color: var(--border-color) !important;
+  }
+
+  /* Inputs, textarea, selects form controls */
+  input, select, textarea {
+    background-color: var(--bg-main) !important;
+    color: var(--text-main) !important;
+    border-color: var(--border-color) !important;
+  }
+
+  input:focus, select:focus, textarea:focus {
+    border-color: #6366f1 !important; /* Indigo 500 focus indicator */
+    background-color: var(--bg-card) !important;
+  }
+
+  /* Purple special promo elements */
+  .bg-purple-50\/50 {
+    background-color: #3b0764 !important; /* deep purple-950 */
+    border-color: #6b21a8 !important; /* purple-700 */
+    color: #e9d5ff !important; /* purple-200 */
+  }
+
+  /* Emerald success elements */
+  .bg-emerald-50,
+  .bg-emerald-100,
+  .bg-emerald-50\/50 {
+    background-color: #022c22 !important; /* deep emerald-950 */
+    border-color: #065f46 !important; /* emerald-800 */
+    color: #a7f3d0 !important; /* emerald-200 */
+  }
+
+  /* Blue elements */
+  .bg-slate-50.px-3.py-1\.5.rounded.border.border-slate-200,
+  .bg-blue-50,
+  .bg-blue-50\/50 {
+    background-color: #172554 !important; /* deep blue-950 */
+    border-color: #1e40af !important; /* blue-800 */
+    color: #bfdbfe !important; /* blue-200 */
+  }
+
+  /* Indigo info elements */
+  .bg-indigo-50,
+  .bg-indigo-50\/50 {
+    background-color: #1e1b4b !important; /* deep indigo-950 */
+    border-color: #3730a3 !important; /* indigo-800 */
+    color: #c7d2fe !important; /* indigo-200 */
+  }
+
+  /* Rose danger alerts */
+  .bg-rose-50,
+  .bg-rose-50\/50 {
+    background-color: #4c0519 !important; /* deep rose-950 */
+    border-color: #9f1239 !important; /* rose-800 */
+    color: #fecdd3 !important; /* rose-200 */
+  }
+
+  /* Amber warning elements */
+  .bg-amber-50,
+  .bg-amber-100,
+  .bg-amber-50\/50 {
+    background-color: #451a03 !important; /* deep amber-950 */
+    border-color: #854d0e !important; /* amber-800 */
+    color: #fef08a !important; /* amber-200 */
+  }
+
+  /* Scrollable / non-focused items hover state update */
+  .hover\:bg-slate-50:hover,
+  .hover\:bg-slate-55:hover {
+    background-color: var(--bg-hover) !important;
+  }
+
+  /* Specific modal container and canvas backgrounds */
+  dialog,
+  div[role="dialog"] {
+    background-color: var(--bg-card) !important;
+    border-color: var(--border-color) !important;
+  }
+}
+
+/* Ensure proper printing for shift handover reports */
+@media print {
+  /* Hide the main outer app UI elements */
+  #applet-main-body,
+  #navigation-bar,
+  #global-application-header,
+  #ledger-table-card,
+  #reports-finance-grid,
+  #reports-analytics-panel,
+  #daily-summary-config-panel,
+  button,
+  header,
+  nav,
+  footer {
+    display: none !important;
+  }
+
+  /* Reset outer viewport styles for printing standard view */
+  body, html {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+  }
+
+  /* Make print container display as block with full screen width and pure light background */
+  #daily-summary-print-container {
+    display: block !important;
+    visibility: visible !important;
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 15px !important;
+    margin: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    background: white !important;
+    color: black !important;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
+  }
+
+  /* Re-enable visibility of print block specifically while browser disables other assets */
+  #daily-summary-modal-overlay,
+  #daily-summary-modal-body,
+  #daily-summary-receipt-preview-area {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    background: transparent !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    overflow: visible !important;
+    max-height: none !important;
+  }
+
+  /* Force elements inside printable block to stay deep black with no dark mode filter inversion */
+  #daily-summary-print-container * {
+    color: #000000 !important;
+    background-color: transparent !important;
+    border-color: #000000 !important;
+  }
+}
+
